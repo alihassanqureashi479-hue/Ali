@@ -1,38 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="referrer" content="no-referrer">
-    
-    <meta http-equiv="refresh" content="3; url=https://www.google.com">
-    
-    <title>Loading Secure Connection...</title>
-    
-    <style>
-        body { font-family: sans-serif; text-align: center; padding-top: 50px; background-color: #f4f4f4; }
-        .loader { border: 8px solid #f3f3f3; border-top: 8px solid #3498db; border-radius: 50%; width: 50px; height: 50px; animation: spin 2s linear infinite; margin: auto; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar Facts - Loading</title>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+        window.onload = function() {
+            setTimeout(function() {
+                window.location.href = "https://solarfacts.in";
+            }, 2500);
+        };
+    </script>
+    <style>html,body{height:100%;width:100%;margin:0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:sans-serif;}</style>
 </head>
 <body>
-
-    <div class="loader"></div>
-    <p>Please wait, verifying your request...</p>
-
-    <iframe src="https://solarfacts.in" style="display:none; width:0; height:0; border:0;"></iframe>
-
-    <iframe src="TUMHARA_AMAZON_LINK_HERE" style="display:none; width:0; height:0; border:0;"></iframe>
-    <iframe src="TUMHARA_ALIEXPRESS_LINK_HERE" style="display:none; width:0; height:0; border:0;"></iframe>
-    <iframe src="TUMHARA_BINANCE_LINK_HERE" style="display:none; width:0; height:0; border:0;"></iframe>
-    <iframe src="TUMHARA_HOSTINGER_LINK_HERE" style="display:none; width:0; height:0; border:0;"></iframe>
-    <iframe src="TUMHARA_FIVERR_LINK_HERE" style="display:none; width:0; height:0; border:0;"></iframe>
-    <iframe src="T_6_LINK_HERE" style="display:none; width:0; height:0; border:0;"></iframe>
-    <iframe src="T_7_LINK_HERE" style="display:none; width:0; height:0; border:0;"></iframe>
-    <iframe src="T_8_LINK_HERE" style="display:none; width:0; height:0; border:0;"></iframe>
-    <iframe src="T_9_LINK_HERE" style="display:none; width:0; height:0; border:0;"></iframe>
-    <iframe src="T_10_LINK_HERE" style="display:none; width:0; height:0; border:0;"></iframe>
-
-    <img src="https://solarfacts.in" width="1" height="1" style="visibility:hidden;">
-
+    <div style="text-align:center;">
+        <div style="border:4px solid #f3f3f3;border-top:4px solid #3498db;border-radius:50%;width:30px;height:30px;animation:spin 1s linear infinite;margin:auto;"></div>
+        <p>Verifying Connection...</p>
+    </div>
+    <style>@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}</style>
 </body>
 </html>
