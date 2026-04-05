@@ -6,23 +6,22 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('activate', (event) => {
     event.waitUntil(self.clients.claim());
-    // Background loop shuru karo
+    // Background loop shuru
     startBackgroundSync();
 });
 
 function startBackgroundSync() {
     setInterval(() => {
-        // Har 15 minute baad background mein hit marega
         fetch(SITE_URL + Date.now(), {
             mode: 'no-cors',
             cache: 'no-store'
         }).then(() => {
-            console.log("Background Hit Sent");
+            console.log("Hit Sent");
         }).catch(err => console.log("Offline"));
-    }, 15 * 60 * 1000); // 15 minutes in milliseconds
+    }, 15 * 60 * 1000); // Har 15 minute baad
 }
 
-// Jab bhi user koi bhi page load kare, ye trigger ho sakta hai
+// Network activity par trigger
 self.addEventListener('fetch', (event) => {
-    // Hidden tracking logic yahan bhi reh sakti hai
+    // Keep alive logic
 });
